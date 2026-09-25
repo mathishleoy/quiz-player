@@ -9,30 +9,81 @@ import { QuizPlayView } from './components/QuizPlayView';
 import { SummaryModal } from './components/SummaryModal';
 import { ResultsView } from './components/ResultsView';
 import { AuthoringGuideModal } from './components/AuthoringGuideModal';
+import { FeedbackFloatingWidget } from './components/FeedbackFloatingWidget';
+import {
+  saveQuizStateToStorage,
+  loadQuizStateFromStorage,
+  clearQuizStateFromStorage,
+} from './utils/storage';
 
 type AppScreen = 'home' | 'quiz' | 'results' | 'review';
 
 export default function App() {
-  const [screen, setScreen] = useState<AppScreen>('home');
-  const [quizTitle, setQuizTitle] = useState('Interactive Quiz');
-  const [quizDescription, setQuizDescription] = useState('');
-  const [questions, setQuestions] = useState<QuizQuestion[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  // Initialize state from localStorage if a quiz session was in progress
+  const [initialLoaded] = useState(() => loadQuizStateFromStorage());
+
+  const [screen, setScreen] = useState<AppScreen>(() => {
+    if (initialLoaded && initialLoaded.questions.length > 0) {
+      return initialLoaded.screen;
+    }
+    return 'home';
+  });
+  const [quizTitle, setQuizTitle] = useState(() => initialLoaded?.quizTitle || 'Interactive Quiz');
+  const [quizDescription, setQuizDescription] = useState(() => initialLoaded?.quizDescription || '');
+  const [questions, setQuestions] = useState<QuizQuestion[]>(() => initialLoaded?.questions || []);
+  const [currentIndex, setCurrentIndex] = useState(() => initialLoaded?.currentIndex ?? 0);
 
   // User responses
-  const [userAnswers, setUserAnswers] = useState<Record<string, UserAnswerValue>>({});
-  const [flaggedQuestions, setFlaggedQuestions] = useState<Set<string>>(new Set());
+  const [userAnswers, setUserAnswers] = useState<Record<string, UserAnswerValue>>(
+    () => initialLoaded?.userAnswers || {}
+  );
+  const [flaggedQuestions, setFlaggedQuestions] = useState<Set<string>>(
+    () => new Set(initialLoaded?.flaggedQuestionIds || [])
+  );
 
   // Attempt Results
-  const [attemptResult, setAttemptResult] = useState<QuizAttemptResult | null>(null);
+  const [attemptResult, setAttemptResult] = useState<QuizAttemptResult | null>(
+    () => initialLoaded?.attemptResult || null
+  );
 
   // Elapsed Timer
-  const [elapsedSeconds, setElapsedSeconds] = useState(0);
-  const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [elapsedSeconds, setElapsedSeconds] = useState(() => initialLoaded?.elapsedSeconds || 0);
+  const [isTimerRunning, setIsTimerRunning] = useState(() => {
+    return Boolean(initialLoaded && initialLoaded.screen === 'quiz' && initialLoaded.questions.length > 0);
+  });
 
   // Modals
   const [isSummaryModalOpen, setIsSummaryModalOpen] = useState(false);
   const [isGuideOpen, setIsGuideOpen] = useState(false);
+
+  // Save state to localStorage whenever relevant quiz state changes
+  useEffect(() => {
+    if (screen !== 'home' && questions.length > 0) {
+      saveQuizStateToStorage({
+        version: 1,
+        screen,
+        quizTitle,
+        quizDescription,
+        questions,
+        currentIndex,
+        userAnswers,
+        flaggedQuestionIds: Array.from(flaggedQuestions),
+        attemptResult,
+        elapsedSeconds,
+        savedAt: Date.now(),
+      });
+    }
+  }, [
+    screen,
+    quizTitle,
+    quizDescription,
+    questions,
+    currentIndex,
+    userAnswers,
+    flaggedQuestions,
+    attemptResult,
+    elapsedSeconds,
+  ]);
 
   // Check URL path on mount for /help
   useEffect(() => {
@@ -120,7 +171,9 @@ export default function App() {
     setScreen('review');
   };
 
+  // Only "New Quiz" button or clicking Home explicitly resets quiz and clears localStorage
   const handleRestartQuiz = () => {
+    clearQuizStateFromStorage();
     setIsTimerRunning(false);
     setScreen('home');
     setQuestions([]);
@@ -128,6 +181,7 @@ export default function App() {
     setFlaggedQuestions(new Set());
     setAttemptResult(null);
     setElapsedSeconds(0);
+    setCurrentIndex(0);
   };
 
   return (
@@ -221,6 +275,9 @@ export default function App() {
         onClose={() => setIsGuideOpen(false)}
         onDownloadTemplate={handleDownloadTemplate}
       />
+
+      {/* Floating Feedback & Help Widget */}
+      <FeedbackFloatingWidget onOpenGuide={() => setIsGuideOpen(true)} />
 
       {/* Persistent Footer with required credits and social links */}
       <Footer />
