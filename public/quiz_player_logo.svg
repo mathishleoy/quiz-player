@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 240" fill="none">
+  <!-- QUIZ PLAYER Brand Logo -->
+  <g fill="#000000">
+    <!-- Q glyph -->
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M125 35 C83.58 35 50 68.58 50 110 C50 151.42 83.58 185 125 185 C141.25 185 156.27 179.84 168.55 171.12 L183.5 198 L207 198 L188.8 162.24 C195.88 147.18 200 130.08 200 110 C200 68.58 166.42 35 125 35 Z M125 61 C152.06 61 174 82.94 174 110 C174 137.06 152.06 159 125 159 C97.94 159 76 137.06 76 110 C76 82.94 97.94 61 125 61 Z" />
+    <!-- Play button inside Q -->
+    <path d="M115 88 L147 110 L115 132 Z" fill="none" stroke="#000000" stroke-width="6" stroke-linejoin="round" />
+    
+    <!-- U glyph -->
+    <path d="M225 38 L254 38 L254 135 C254 152 263 161 278 161 C293 161 302 152 302 135 L302 38 L331 38 L331 138 C331 169 311 184 278 184 C245 184 225 169 225 138 Z" />
+    
+    <!-- I glyph -->
+    <rect x="353" y="38" width="28" height="144" />
+    
+    <!-- Z glyph -->
+    <path d="M403 38 L475 38 L475 64 L435 156 L477 156 L477 182 L401 182 L401 156 L441 64 L403 64 Z" />
+    
+    <!-- PLAYER Subtitle with tracking -->
+    <text x="250" y="222" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif" font-weight="500" font-size="34" letter-spacing="14">PLAYER</text>
+  </g>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Solid black Q with play button cutout from uploaded quiz_player_favicon.png -->
+  <g>
+    <!-- Handle/tail of Q -->
+    <rect x="74" y="70" width="16" height="32" rx="8" transform="rotate(-45 74 70)" fill="#000000" />
+    <!-- Circle of Q -->
+    <circle cx="56" cy="52" r="42" fill="#000000" />
+    <!-- White Play Triangle in center -->
+    <polygon points="49,36 71,52 49,68" fill="#FFFFFF" />
+  </g>
+</svg>
