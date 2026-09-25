@@ -132,13 +132,15 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
-      {/* Persistent Navigation Header */}
-      <Header
-        quizTitle={screen !== 'home' ? quizTitle : undefined}
-        onOpenGuide={() => setIsGuideOpen(true)}
-        onResetQuiz={screen !== 'home' ? handleRestartQuiz : undefined}
-        showReset={screen !== 'home'}
-      />
+      {/* Navigation Header (hidden on home page where file is uploaded) */}
+      {screen !== 'home' && (
+        <Header
+          quizTitle={quizTitle}
+          onOpenGuide={() => setIsGuideOpen(true)}
+          onResetQuiz={handleRestartQuiz}
+          showReset={true}
+        />
+      )}
 
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col justify-start">

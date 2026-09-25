@@ -104,7 +104,20 @@ export const HomeView: React.FC<HomeViewProps> = ({
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-14 space-y-10">
+    <div className="relative max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-12 space-y-8 sm:space-y-10">
+      {/* Top action row with Authoring Guide button */}
+      <div className="flex justify-end items-center">
+        <button
+          onClick={onOpenGuide}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-800 bg-white hover:bg-slate-100 border border-slate-300 rounded-md transition-colors shadow-2xs"
+          title="Open Authoring Guide & Prompts (?)"
+        >
+          <HelpCircle className="w-4 h-4 text-slate-700" />
+          <span>Authoring Guide</span>
+          <kbd className="hidden sm:inline-block px-1 py-0.2 text-[10px] font-mono bg-slate-50 border border-slate-300 rounded text-slate-500">?</kbd>
+        </button>
+      </div>
+
       {/* Brand Logo & Presentation */}
       <div className="flex flex-col items-center text-center space-y-4">
         {/* Render crisp brand logo lockup matching reference */}
