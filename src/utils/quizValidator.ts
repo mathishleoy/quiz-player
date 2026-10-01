@@ -85,13 +85,18 @@ export function validateAndParseQuiz(jsonString: string): ValidationResult {
           errors.push(`Question #${qNum} (mcq): "correct" must be a valid 0-based index between 0 and ${q.options.length - 1}. Got ${q.correct}.`);
           return;
         }
+
+        // Lock the original correct option and shuffle options randomly for each quiz session
+        const rawOptions = q.options.map((o: any) => String(o));
+        const shuffled = shuffleMCQOptions(rawOptions, q.correct);
+
         parsedQuestions.push({
           id: baseId,
           originalIndex: idx,
           type: 'mcq',
           text,
-          options: q.options.map((o: any) => String(o)),
-          correct: q.correct,
+          options: shuffled.options,
+          correct: shuffled.correct,
           feedback,
         });
         break;
@@ -300,6 +305,32 @@ export function validateAndParseQuiz(jsonString: string): ValidationResult {
     },
     errors: [],
     warnings,
+  };
+}
+
+// Shuffles the options of an MCQ question while tracking and updating the correct answer index
+export function shuffleMCQOptions(
+  options: string[],
+  correctIndex: number
+): { options: string[]; correct: number } {
+  // Capture the text of the correct answer using the author's original index
+  const correctText = options[correctIndex];
+
+  // Create indexed representations of options
+  const indexed = options.map((opt, idx) => ({ opt, originalIndex: idx }));
+
+  // Perform Fisher-Yates shuffle
+  for (let i = indexed.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [indexed[i], indexed[j]] = [indexed[j], indexed[i]];
+  }
+
+  // Find the new index where the correct answer ended up
+  const newCorrectIndex = indexed.findIndex(item => item.originalIndex === correctIndex);
+
+  return {
+    options: indexed.map(item => item.opt),
+    correct: newCorrectIndex !== -1 ? newCorrectIndex : 0,
   };
 }
 

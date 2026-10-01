@@ -205,10 +205,13 @@ export const AuthoringGuideModal: React.FC<AuthoringGuideModalProps> = ({
                 {/* MCQ */}
                 <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-lg space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-slate-900">1. Multiple Choice (MCQ)</span>
+                    <div>
+                      <span className="font-bold text-xs text-slate-900 block">1. Multiple Choice (MCQ)</span>
+                      <span className="text-[10px] text-slate-500">Auto-shuffles choices per session; correct answer stays locked</span>
+                    </div>
                     <button
                       onClick={() => handleCopy(`{"type":"mcq","text":"Which planet is red?","options":["Venus","Mars","Jupiter"],"correct":1,"feedback":"Mars is red."}`, 'mcq')}
-                      className="text-[11px] text-slate-500 hover:text-black"
+                      className="text-[11px] text-slate-500 hover:text-black shrink-0"
                     >
                       {copiedFormat === 'mcq' ? 'Copied!' : 'Copy snippet'}
                     </button>
@@ -218,7 +221,7 @@ export const AuthoringGuideModal: React.FC<AuthoringGuideModalProps> = ({
   "type": "mcq",
   "text": "Question text",
   "options": ["A", "B", "C", "D"],
-  "correct": 0, // 0-based index
+  "correct": 0, // 0-based index (options are auto-shuffled & locked!)
   "feedback": "Explanation"
 }`}
                   </pre>

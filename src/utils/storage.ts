@@ -18,7 +18,9 @@ const STORAGE_KEY = 'quiz_player_active_session_v1';
 
 export function saveQuizStateToStorage(state: SavedQuizState): void {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
   } catch (err) {
     console.warn('Failed to save quiz state to localStorage', err);
   }
@@ -26,7 +28,10 @@ export function saveQuizStateToStorage(state: SavedQuizState): void {
 
 export function loadQuizStateFromStorage(): SavedQuizState | null {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    if (typeof window === 'undefined' || !window.localStorage) {
+      return null;
+    }
+    const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
     const parsed = JSON.parse(raw);
     if (!parsed || !Array.isArray(parsed.questions) || parsed.questions.length === 0) {
@@ -41,7 +46,9 @@ export function loadQuizStateFromStorage(): SavedQuizState | null {
 
 export function clearQuizStateFromStorage(): void {
   try {
-    localStorage.removeItem(STORAGE_KEY);
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.removeItem(STORAGE_KEY);
+    }
   } catch (err) {
     console.warn('Failed to clear quiz state from localStorage', err);
   }
