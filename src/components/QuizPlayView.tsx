@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { QuizQuestion, UserAnswerValue, QuizAttemptResult } from '../types/quiz';
 import { QuestionCard } from './QuestionCard';
 import { QuizNavigation } from './QuizNavigation';
-import { ChevronLeft, ChevronRight, Send, CheckCircle2, RotateCcw } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Send, CheckCircle2, RotateCcw, CheckCircle } from 'lucide-react';
+import { isQuestionAnswered } from '../utils/scoring';
 
 interface QuizPlayViewProps {
   quizTitle: string;
@@ -43,6 +44,11 @@ export const QuizPlayView: React.FC<QuizPlayViewProps> = ({
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === questions.length - 1;
 
+  // Real-time progress calculations
+  const totalQuestions = questions.length;
+  const answeredCount = questions.filter((q) => isQuestionAnswered(q, userAnswers[q.id])).length;
+  const progressPercent = totalQuestions > 0 ? Math.round((answeredCount / totalQuestions) * 100) : 0;
+
   // Keyboard navigation when not typing in an input
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -69,6 +75,45 @@ export const QuizPlayView: React.FC<QuizPlayViewProps> = ({
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 animate-in fade-in duration-200">
+      {/* Real-time Quiz Progress Bar */}
+      <div className="bg-white border border-slate-200 rounded-xl p-4 sm:p-5 shadow-xs space-y-2.5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 text-xs">
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-slate-900 text-sm">
+              {isReview ? 'Review Progress' : 'Quiz Progress'}
+            </span>
+            <span className="text-slate-400">&bull;</span>
+            <span className="text-slate-600 font-medium">
+              Question <strong className="text-slate-900">{currentIndex + 1}</strong> of {totalQuestions}
+            </span>
+          </div>
+          <div className="flex items-center gap-3 text-slate-500">
+            <span>
+              <strong className="text-slate-900 font-semibold">{answeredCount}</strong> of {totalQuestions} answered
+            </span>
+            <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-800 font-mono text-[11px] font-bold">
+              {progressPercent}%
+            </span>
+          </div>
+        </div>
+
+        {/* Outer track */}
+        <div
+          className="relative w-full h-2.5 bg-slate-100 rounded-full overflow-hidden"
+          role="progressbar"
+          aria-valuenow={progressPercent}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-label="Quiz completion progress"
+        >
+          {/* Animated fill indicator */}
+          <div
+            className="h-full bg-black transition-all duration-300 ease-out rounded-full"
+            style={{ width: `${progressPercent}%` }}
+          />
+        </div>
+      </div>
+
       {/* Review Mode Banner */}
       {isReview && (
         <div className="p-4 bg-slate-900 text-white rounded-xl shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3 text-xs sm:text-sm">

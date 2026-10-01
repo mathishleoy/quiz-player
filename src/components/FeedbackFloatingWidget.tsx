@@ -1,17 +1,37 @@
-import React, { useState } from 'react';
-import { MessageSquareText, X, Sparkles, Send, ExternalLink, HelpCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { HelpCircle, X, Sparkles, ExternalLink } from 'lucide-react';
 
 interface FeedbackFloatingWidgetProps {
   onOpenGuide: () => void;
 }
 
+const FEEDBACK_SEEN_KEY = 'quiz_player_feedback_widget_seen_v1';
+
 export const FeedbackFloatingWidget: React.FC<FeedbackFloatingWidgetProps> = ({ onOpenGuide }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [hasInteracted, setHasInteracted] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(() => {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        return window.localStorage.getItem(FEEDBACK_SEEN_KEY) === 'true';
+      }
+    } catch {
+      // ignore
+    }
+    return false;
+  });
 
   const handleToggle = () => {
     setIsOpen((prev) => !prev);
-    setHasInteracted(true);
+    if (!hasInteracted) {
+      setHasInteracted(true);
+      try {
+        if (typeof window !== 'undefined' && window.localStorage) {
+          window.localStorage.setItem(FEEDBACK_SEEN_KEY, 'true');
+        }
+      } catch {
+        // ignore
+      }
+    }
   };
 
   return (
@@ -133,11 +153,11 @@ export const FeedbackFloatingWidget: React.FC<FeedbackFloatingWidgetProps> = ({ 
         </div>
       )}
 
-      {/* Floating Action Button with Pulse / Tooltip Animations */}
-      <div className="relative group">
-        {/* Subtle persistent helper pill (collapses once clicked) */}
+      {/* Floating Action Button - Clean Logo Only, No Text, No Flashing */}
+      <div className="relative">
+        {/* Helper pill shown ONLY for first-time visitors who haven't touched it yet */}
         {!isOpen && !hasInteracted && (
-          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 hidden md:flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 text-white text-xs font-medium rounded-full shadow-lg whitespace-nowrap animate-bounce">
+          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 hidden md:flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 text-white text-xs font-medium rounded-full shadow-lg whitespace-nowrap">
             <span>Problems or ideas? Reach out!</span>
             <div className="w-2 h-2 bg-slate-900 rotate-45 absolute -right-1 top-1/2 -translate-y-1/2" />
           </div>
@@ -145,29 +165,23 @@ export const FeedbackFloatingWidget: React.FC<FeedbackFloatingWidgetProps> = ({ 
 
         <button
           onClick={handleToggle}
-          className={`relative flex items-center gap-2 p-3 sm:px-4 sm:py-3 rounded-full text-white font-semibold text-xs sm:text-sm shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-hidden ${
+          className={`relative flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-full text-white shadow-lg transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-hidden ${
             isOpen
-              ? 'bg-slate-800 rotate-90 shadow-2xl'
+              ? 'bg-slate-800 rotate-90 shadow-xl'
               : 'bg-black hover:bg-slate-800'
           }`}
           aria-expanded={isOpen}
-          title="Problems or need improvements? Reach me via Instagram, TikTok, etc."
+          aria-label="Help and feedback"
+          title="Problems, ideas, or feedback? Click to reach out"
         >
-          {/* Subtle pulse animation ring when closed */}
-          {!isOpen && (
-            <span className="absolute -inset-1 rounded-full bg-slate-900 opacity-20 animate-ping" />
-          )}
-
           {isOpen ? (
             <X className="w-5 h-5 transition-transform" />
           ) : (
-            <>
-              <MessageSquareText className="w-5 h-5 text-white shrink-0" />
-              <span className="hidden sm:inline font-medium tracking-tight">Need Help / Feedback?</span>
-            </>
+            <HelpCircle className="w-5 h-5 sm:w-5 sm:h-5 text-white" />
           )}
         </button>
       </div>
     </div>
   );
 };
+
