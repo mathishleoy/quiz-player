@@ -76,22 +76,22 @@ export const QuizPlayView: React.FC<QuizPlayViewProps> = ({
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 animate-in fade-in duration-200">
       {/* Real-time Quiz Progress Bar */}
-      <div className="bg-white border border-slate-200 rounded-xl p-4 sm:p-5 shadow-xs space-y-2.5">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 sm:p-5 shadow-xs space-y-2.5 transition-colors">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 text-xs">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-slate-900 text-sm">
+            <span className="font-bold text-slate-900 dark:text-white text-sm">
               {isReview ? 'Review Progress' : 'Quiz Progress'}
             </span>
-            <span className="text-slate-400">&bull;</span>
-            <span className="text-slate-600 font-medium">
-              Question <strong className="text-slate-900">{currentIndex + 1}</strong> of {totalQuestions}
+            <span className="text-slate-400 dark:text-slate-600">&bull;</span>
+            <span className="text-slate-600 dark:text-slate-400 font-medium">
+              Question <strong className="text-slate-900 dark:text-white">{currentIndex + 1}</strong> of {totalQuestions}
             </span>
           </div>
-          <div className="flex items-center gap-3 text-slate-500">
+          <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400">
             <span>
-              <strong className="text-slate-900 font-semibold">{answeredCount}</strong> of {totalQuestions} answered
+              <strong className="text-slate-900 dark:text-white font-semibold">{answeredCount}</strong> of {totalQuestions} answered
             </span>
-            <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-800 font-mono text-[11px] font-bold">
+            <span className="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-mono text-[11px] font-bold">
               {progressPercent}%
             </span>
           </div>
@@ -99,7 +99,7 @@ export const QuizPlayView: React.FC<QuizPlayViewProps> = ({
 
         {/* Outer track */}
         <div
-          className="relative w-full h-2.5 bg-slate-100 rounded-full overflow-hidden"
+          className="relative w-full h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"
           role="progressbar"
           aria-valuenow={progressPercent}
           aria-valuemin={0}
@@ -108,7 +108,7 @@ export const QuizPlayView: React.FC<QuizPlayViewProps> = ({
         >
           {/* Animated fill indicator */}
           <div
-            className="h-full bg-black transition-all duration-300 ease-out rounded-full"
+            className="h-full bg-black dark:bg-white transition-all duration-300 ease-out rounded-full"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
@@ -116,7 +116,7 @@ export const QuizPlayView: React.FC<QuizPlayViewProps> = ({
 
       {/* Review Mode Banner */}
       {isReview && (
-        <div className="p-4 bg-slate-900 text-white rounded-xl shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3 text-xs sm:text-sm">
+        <div className="p-4 bg-slate-900 dark:bg-slate-800 border border-transparent dark:border-slate-700 text-white rounded-xl shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3 text-xs sm:text-sm">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
             <div>
@@ -164,18 +164,18 @@ export const QuizPlayView: React.FC<QuizPlayViewProps> = ({
           />
 
           {/* Bottom Step-by-Step Navigation Bar */}
-          <div className="bg-white border border-slate-200 rounded-lg p-4 shadow-xs flex items-center justify-between gap-3">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-4 shadow-xs flex items-center justify-between gap-3 transition-colors">
             <button
               type="button"
               disabled={isFirst}
               onClick={() => onIndexChange(currentIndex - 1)}
-              className="inline-flex items-center gap-1.5 px-4 py-2 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-100 disabled:opacity-30 disabled:pointer-events-none transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none transition-colors"
             >
               <ChevronLeft className="w-4 h-4" />
               <span>Previous page</span>
             </button>
 
-            <span className="text-xs text-slate-500 hidden sm:inline">
+            <span className="text-xs text-slate-500 dark:text-slate-400 hidden sm:inline">
               Question {currentIndex + 1} of {questions.length}
             </span>
 
@@ -184,7 +184,7 @@ export const QuizPlayView: React.FC<QuizPlayViewProps> = ({
                 <button
                   type="button"
                   onClick={onRequestSubmit}
-                  className="inline-flex items-center gap-1.5 px-5 py-2 bg-black hover:bg-slate-800 text-white rounded-lg text-xs font-semibold transition-all shadow-xs"
+                  className="inline-flex items-center gap-1.5 px-5 py-2 bg-black dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-100 text-white dark:text-slate-950 rounded-lg text-xs font-semibold transition-all shadow-xs"
                 >
                   <Send className="w-4 h-4" />
                   <span>Submit Quiz</span>
@@ -193,7 +193,7 @@ export const QuizPlayView: React.FC<QuizPlayViewProps> = ({
                 <button
                   type="button"
                   onClick={onFinishReview}
-                  className="inline-flex items-center gap-1.5 px-5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-semibold transition-all"
+                  className="inline-flex items-center gap-1.5 px-5 py-2 bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-100 text-white dark:text-slate-950 rounded-lg text-xs font-semibold transition-all"
                 >
                   <span>Finish Review</span>
                 </button>
@@ -202,7 +202,7 @@ export const QuizPlayView: React.FC<QuizPlayViewProps> = ({
               <button
                 type="button"
                 onClick={() => onIndexChange(currentIndex + 1)}
-                className="inline-flex items-center gap-1.5 px-4 py-2 bg-black hover:bg-slate-800 text-white rounded-lg text-xs font-semibold transition-colors shadow-xs"
+                className="inline-flex items-center gap-1.5 px-4 py-2 bg-black dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-100 text-white dark:text-slate-950 rounded-lg text-xs font-semibold transition-colors shadow-xs"
               >
                 <span>Next page</span>
                 <ChevronRight className="w-4 h-4" />

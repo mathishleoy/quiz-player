@@ -44,7 +44,7 @@ export const FillBlankQuestion: React.FC<FillBlankQuestionProps> = ({
 
       {/* Inline interactive prompt if segmented */}
       {segments.length > 1 ? (
-        <div className="p-5 bg-slate-50 border border-slate-200 rounded-lg text-slate-800 leading-loose text-base font-normal">
+        <div className="p-5 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 rounded-lg text-slate-800 dark:text-slate-200 leading-loose text-base font-normal">
           {segments.map((segment, idx) => {
             const hasInputAfter = idx < blankCount;
             const userVal = currentValues[idx] || '';
@@ -68,13 +68,13 @@ export const FillBlankQuestion: React.FC<FillBlankQuestionProps> = ({
                       className={`px-3 py-1 font-mono text-sm rounded-md border transition-all text-center min-w-[120px] max-w-[200px] ${
                         isReview
                           ? isMatch
-                            ? 'bg-emerald-50 border-emerald-500 text-emerald-950 font-bold'
-                            : 'bg-rose-50 border-rose-400 text-rose-950 line-through'
-                          : 'bg-white border-slate-300 focus:outline-hidden focus:border-slate-900 focus:ring-1 focus:ring-slate-900 shadow-2xs'
+                            ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-500 text-emerald-950 dark:text-emerald-200 font-bold'
+                            : 'bg-rose-50 dark:bg-rose-950/40 border-rose-400 text-rose-950 dark:text-rose-200 line-through'
+                          : 'bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-hidden focus:border-slate-900 dark:focus:border-white focus:ring-1 focus:ring-slate-900 dark:focus:ring-white shadow-2xs'
                       }`}
                     />
                     {isReview && !isMatch && (
-                      <span className="ml-1 text-xs font-bold text-emerald-700 font-mono bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                      <span className="ml-1 text-xs font-bold text-emerald-700 dark:text-emerald-400 font-mono bg-emerald-50 dark:bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-200 dark:border-emerald-800">
                         {correctVal}
                       </span>
                     )}
@@ -87,7 +87,7 @@ export const FillBlankQuestion: React.FC<FillBlankQuestionProps> = ({
       ) : (
         /* If no ____ placeholder was found in text, render inputs below */
         <div className="space-y-3">
-          <p className="text-slate-800 text-base">{question.text}</p>
+          <p className="text-slate-800 dark:text-slate-200 text-base">{question.text}</p>
           <div className="space-y-2 pt-2">
             {question.correct.map((correctVal, idx) => {
               const userVal = currentValues[idx] || '';
@@ -97,7 +97,7 @@ export const FillBlankQuestion: React.FC<FillBlankQuestionProps> = ({
 
               return (
                 <div key={idx} className="flex flex-col sm:flex-row sm:items-center gap-2">
-                  <span className="text-xs font-bold text-slate-500 w-16">
+                  <span className="text-xs font-bold text-slate-500 dark:text-slate-400 w-16">
                     Blank #{idx + 1}:
                   </span>
                   <div className="flex-1 relative">
@@ -110,20 +110,20 @@ export const FillBlankQuestion: React.FC<FillBlankQuestionProps> = ({
                       className={`w-full px-3.5 py-2 font-mono text-sm rounded-md border transition-all ${
                         isReview
                           ? isMatch
-                            ? 'bg-emerald-50 border-emerald-500 text-emerald-950 font-semibold'
-                            : 'bg-rose-50 border-rose-400 text-rose-950'
-                          : 'bg-white border-slate-300 focus:outline-hidden focus:border-slate-900 focus:ring-1 focus:ring-slate-900 shadow-2xs'
+                            ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-500 text-emerald-950 dark:text-emerald-200 font-semibold'
+                            : 'bg-rose-50 dark:bg-rose-950/40 border-rose-400 text-rose-950 dark:text-rose-200'
+                          : 'bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-hidden focus:border-slate-900 dark:focus:border-white focus:ring-1 focus:ring-slate-900 dark:focus:ring-white shadow-2xs'
                       }`}
                     />
                   </div>
                   {isReview && (
                     <div className="flex items-center gap-1.5 text-xs font-medium shrink-0">
                       {isMatch ? (
-                        <span className="text-emerald-700 flex items-center gap-1">
+                        <span className="text-emerald-700 dark:text-emerald-400 flex items-center gap-1">
                           <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Correct
                         </span>
                       ) : (
-                        <span className="text-rose-700 flex items-center gap-1">
+                        <span className="text-rose-700 dark:text-rose-400 flex items-center gap-1">
                           <XCircle className="w-4 h-4 text-rose-600" /> Expected: <strong>{correctVal}</strong>
                         </span>
                       )}

@@ -65,7 +65,7 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({
       </div>
 
       {/* Moodle Classic Matching Matrix */}
-      <div className="border border-slate-200 rounded-lg overflow-hidden divide-y divide-slate-200 bg-white">
+      <div className="border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden divide-y divide-slate-200 dark:divide-slate-800 bg-white dark:bg-slate-900 transition-colors">
         {question.pairs.map((pair, idx) => {
           const matchedVal = currentMatches[pair.prompt] || '';
           const isSelected = selectedPrompt === pair.prompt;
@@ -75,7 +75,11 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({
             <div
               key={idx}
               className={`p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-colors ${
-                isSelected ? 'bg-slate-100' : idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'
+                isSelected
+                  ? 'bg-slate-100 dark:bg-slate-800'
+                  : idx % 2 === 0
+                  ? 'bg-white dark:bg-slate-900'
+                  : 'bg-slate-50/50 dark:bg-slate-800/40'
               }`}
             >
               {/* Prompt Item */}
@@ -86,13 +90,13 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({
                   onClick={() => !isReview && setSelectedPrompt(isSelected ? null : pair.prompt)}
                   className={`px-3 py-1.5 rounded text-left text-sm font-medium transition-all flex items-center justify-between gap-2 w-full border ${
                     isSelected
-                      ? 'border-black bg-black text-white shadow-xs'
-                      : 'border-slate-200 bg-white hover:border-slate-400 text-slate-800'
+                      ? 'border-black dark:border-white bg-black dark:bg-white text-white dark:text-slate-950 shadow-xs'
+                      : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-slate-400 dark:hover:border-slate-600 text-slate-800 dark:text-slate-200'
                   }`}
                 >
                   <span className="leading-snug">{pair.prompt}</span>
                   {!isReview && (
-                    <ArrowRight className={`w-3.5 h-3.5 shrink-0 ${isSelected ? 'text-white' : 'text-slate-400'}`} />
+                    <ArrowRight className={`w-3.5 h-3.5 shrink-0 ${isSelected ? 'text-white dark:text-slate-950' : 'text-slate-400'}`} />
                   )}
                 </button>
               </div>
@@ -100,17 +104,17 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({
               {/* Match Selector / Display (Moodle style dropdown) */}
               <div className="flex items-center gap-2 sm:w-1/2 justify-end">
                 {isReview ? (
-                  <div className="w-full flex items-center justify-between gap-2 p-2 rounded-md border text-xs">
-                    <span className={`font-medium ${isCorrect ? 'text-emerald-900' : 'text-rose-900'}`}>
+                  <div className="w-full flex items-center justify-between gap-2 p-2 rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs">
+                    <span className={`font-medium ${isCorrect ? 'text-emerald-900 dark:text-emerald-300' : 'text-rose-900 dark:text-rose-300'}`}>
                       {matchedVal || '[Not answered]'}
                     </span>
                     <div className="flex items-center gap-1.5 shrink-0">
                       {isCorrect ? (
-                        <span className="flex items-center gap-1 text-emerald-700 font-semibold">
+                        <span className="flex items-center gap-1 text-emerald-700 dark:text-emerald-400 font-semibold">
                           <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Correct
                         </span>
                       ) : (
-                        <span className="flex items-center gap-1 text-rose-700 font-semibold">
+                        <span className="flex items-center gap-1 text-rose-700 dark:text-rose-400 font-semibold">
                           <XCircle className="w-4 h-4 text-rose-600" /> Correct: <strong>{pair.answer}</strong>
                         </span>
                       )}
@@ -121,13 +125,13 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({
                     <select
                       value={matchedVal}
                       onChange={(e) => handlePair(pair.prompt, e.target.value)}
-                      className={`w-full px-3 py-1.5 text-xs sm:text-sm rounded-md border bg-white text-slate-800 focus:outline-hidden focus:border-black focus:ring-1 focus:ring-black cursor-pointer ${
-                        matchedVal ? 'border-slate-900 font-medium' : 'border-slate-300 text-slate-500'
+                      className={`w-full px-3 py-1.5 text-xs sm:text-sm rounded-md border bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 focus:outline-hidden focus:border-black dark:focus:border-white focus:ring-1 focus:ring-black dark:focus:ring-white cursor-pointer ${
+                        matchedVal ? 'border-slate-900 dark:border-slate-600 font-medium' : 'border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400'
                       }`}
                     >
                       <option value="">Choose matching item...</option>
                       {allAnswerOptions.map((opt, oIdx) => (
-                        <option key={oIdx} value={opt}>
+                        <option key={oIdx} value={opt} className="bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
                           {opt}
                         </option>
                       ))}
@@ -137,7 +141,7 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({
                       <button
                         type="button"
                         onClick={() => handleUnpair(pair.prompt)}
-                        className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-slate-100 rounded transition-colors"
+                        className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-colors"
                         title="Clear pairing"
                       >
                         <X className="w-3.5 h-3.5" />
@@ -153,15 +157,15 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({
 
       {/* Available Answers Tray (for click-to-pair) */}
       {!isReview && (
-        <div className="p-4 bg-slate-50 border border-slate-200 rounded-lg space-y-2">
-          <div className="text-xs font-semibold text-slate-600 flex items-center justify-between">
+        <div className="p-4 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 rounded-lg space-y-2 transition-colors">
+          <div className="text-xs font-semibold text-slate-600 dark:text-slate-300 flex items-center justify-between">
             <span>Available Answer Pool:</span>
             {selectedPrompt ? (
-              <span className="text-black font-bold animate-pulse">
+              <span className="text-black dark:text-white font-bold animate-pulse">
                 Click an answer to match with "{selectedPrompt}"
               </span>
             ) : (
-              <span className="text-slate-400">Click a prompt above first, then click an answer below</span>
+              <span className="text-slate-400 dark:text-slate-500">Click a prompt above first, then click an answer below</span>
             )}
           </div>
 
@@ -177,10 +181,10 @@ export const MatchingQuestion: React.FC<MatchingQuestionProps> = ({
                   onClick={() => selectedPrompt && handlePair(selectedPrompt, ans)}
                   className={`px-3 py-1.5 rounded text-xs font-medium border transition-all ${
                     selectedPrompt
-                      ? 'border-slate-800 bg-white hover:bg-slate-900 hover:text-white shadow-2xs cursor-pointer'
+                      ? 'border-slate-800 dark:border-white bg-white dark:bg-slate-900 text-slate-900 dark:text-white hover:bg-slate-900 dark:hover:bg-white hover:text-white dark:hover:text-slate-950 shadow-2xs cursor-pointer'
                       : isUsed
-                      ? 'border-slate-200 bg-slate-100 text-slate-400 cursor-not-allowed'
-                      : 'border-slate-300 bg-white text-slate-700 cursor-default'
+                      ? 'border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed'
+                      : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 cursor-default'
                   }`}
                 >
                   {ans}

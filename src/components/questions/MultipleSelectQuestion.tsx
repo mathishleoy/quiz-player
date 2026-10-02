@@ -42,23 +42,23 @@ export const MultipleSelectQuestion: React.FC<MultipleSelectQuestionProps> = ({
           const isSelected = selected.includes(idx);
           const isTargetCorrect = correctSet.has(idx);
 
-          let cardStyle = 'border-slate-200 hover:border-slate-300 hover:bg-slate-50 bg-white text-slate-800';
+          let cardStyle = 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/60 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200';
 
           if (isReview) {
             if (isTargetCorrect && isSelected) {
               // Correctly chosen
-              cardStyle = 'border-emerald-500 bg-emerald-50/70 text-emerald-950 ring-1 ring-emerald-500';
+              cardStyle = 'border-emerald-500 bg-emerald-50/70 dark:bg-emerald-950/40 text-emerald-950 dark:text-emerald-200 ring-1 ring-emerald-500';
             } else if (isTargetCorrect && !isSelected) {
               // Missed correct answer
-              cardStyle = 'border-amber-400 bg-amber-50/60 text-amber-900 border-dashed';
+              cardStyle = 'border-amber-400 bg-amber-50/60 dark:bg-amber-950/30 text-amber-900 dark:text-amber-300 border-dashed';
             } else if (!isTargetCorrect && isSelected) {
               // Wrongly chosen
-              cardStyle = 'border-rose-400 bg-rose-50/70 text-rose-950 ring-1 ring-rose-400';
+              cardStyle = 'border-rose-400 bg-rose-50/70 dark:bg-rose-950/40 text-rose-950 dark:text-rose-200 ring-1 ring-rose-400';
             } else {
-              cardStyle = 'border-slate-200 bg-white opacity-50 text-slate-500';
+              cardStyle = 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 opacity-50 text-slate-500 dark:text-slate-400';
             }
           } else if (isSelected) {
-            cardStyle = 'border-slate-900 bg-slate-50 text-slate-900 ring-2 ring-slate-900 shadow-xs';
+            cardStyle = 'border-slate-900 dark:border-white bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white ring-2 ring-slate-900 dark:ring-white shadow-xs';
           }
 
           return (
@@ -80,15 +80,15 @@ export const MultipleSelectQuestion: React.FC<MultipleSelectQuestionProps> = ({
                       ? 'bg-rose-600 border-rose-600 text-white'
                       : isReview && isTargetCorrect
                       ? 'bg-emerald-600 border-emerald-600 text-white'
-                      : 'bg-black border-black text-white'
-                    : 'border-slate-300 bg-white'
+                      : 'bg-black dark:bg-white border-black dark:border-white text-white dark:text-slate-950'
+                    : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-850'
                 }`}
               >
                 {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
               </div>
 
               {/* Letter identifier */}
-              <span className="text-xs font-bold text-slate-500 uppercase mt-0.5 shrink-0">
+              <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mt-0.5 shrink-0">
                 {OPTION_LABELS[idx]}.
               </span>
 

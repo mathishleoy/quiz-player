@@ -33,18 +33,18 @@ export const MCQQuestion: React.FC<MCQQuestionProps> = ({
           const isCorrect = idx === question.correct;
           const isUserWrong = isSelected && !isCorrect && isReview;
 
-          let cardStyle = 'border-slate-200 hover:border-slate-300 hover:bg-slate-50 bg-white text-slate-800';
+          let cardStyle = 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/60 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200';
 
           if (isReview) {
             if (isCorrect) {
-              cardStyle = 'border-emerald-500 bg-emerald-50/70 text-emerald-950 ring-1 ring-emerald-500';
+              cardStyle = 'border-emerald-500 bg-emerald-50/70 dark:bg-emerald-950/40 text-emerald-950 dark:text-emerald-200 ring-1 ring-emerald-500';
             } else if (isUserWrong) {
-              cardStyle = 'border-rose-400 bg-rose-50/70 text-rose-950 ring-1 ring-rose-400';
+              cardStyle = 'border-rose-400 bg-rose-50/70 dark:bg-rose-950/40 text-rose-950 dark:text-rose-200 ring-1 ring-rose-400';
             } else {
-              cardStyle = 'border-slate-200 bg-white opacity-60 text-slate-600';
+              cardStyle = 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 opacity-60 text-slate-600 dark:text-slate-400';
             }
           } else if (isSelected) {
-            cardStyle = 'border-slate-900 bg-slate-50 text-slate-900 ring-2 ring-slate-900 shadow-xs';
+            cardStyle = 'border-slate-900 dark:border-white bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white ring-2 ring-slate-900 dark:ring-white shadow-xs';
           }
 
           return (
@@ -68,12 +68,12 @@ export const MCQQuestion: React.FC<MCQQuestionProps> = ({
               <div
                 className={`w-6 h-6 rounded-md flex items-center justify-center text-xs font-semibold shrink-0 uppercase transition-colors ${
                   isSelected && !isReview
-                    ? 'bg-black text-white'
+                    ? 'bg-black dark:bg-white text-white dark:text-slate-950'
                     : isReview && isCorrect
                     ? 'bg-emerald-600 text-white'
                     : isReview && isUserWrong
                     ? 'bg-rose-600 text-white'
-                    : 'bg-slate-100 text-slate-600 border border-slate-200'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
                 }`}
               >
                 {OPTION_LABELS[idx] || idx + 1}

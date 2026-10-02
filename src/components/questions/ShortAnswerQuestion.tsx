@@ -40,14 +40,14 @@ export const ShortAnswerQuestion: React.FC<ShortAnswerQuestionProps> = ({
             className={`w-full px-4 py-2.5 rounded-lg border text-sm transition-all font-mono ${
               isReview
                 ? isCorrect
-                  ? 'bg-emerald-50 border-emerald-500 text-emerald-950 font-medium'
-                  : 'bg-rose-50 border-rose-400 text-rose-950'
-                : 'bg-white border-slate-300 focus:outline-hidden focus:border-slate-900 focus:ring-1 focus:ring-slate-900 shadow-2xs'
+                  ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-500 text-emerald-950 dark:text-emerald-200 font-medium'
+                  : 'bg-rose-50 dark:bg-rose-950/40 border-rose-400 text-rose-950 dark:text-rose-200'
+                : 'bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-hidden focus:border-slate-900 dark:focus:border-white focus:ring-1 focus:ring-slate-900 dark:focus:ring-white shadow-2xs'
             }`}
           />
         </div>
 
-        <div className="flex items-center justify-between text-xs text-slate-500">
+        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
           <span>
             {question.caseSensitive
               ? 'Case-sensitive grading enabled.'

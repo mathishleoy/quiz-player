@@ -39,26 +39,26 @@ export const FeedbackFloatingWidget: React.FC<FeedbackFloatingWidgetProps> = ({ 
       {/* Expanded Popup Card */}
       {isOpen && (
         <div
-          className="mb-3 w-80 sm:w-88 bg-white border border-slate-200 rounded-2xl shadow-2xl p-5 text-slate-800 animate-in fade-in slide-in-from-bottom-5 duration-200"
+          className="mb-3 w-80 sm:w-88 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl p-5 text-slate-800 dark:text-slate-200 animate-in fade-in slide-in-from-bottom-5 duration-200 transition-colors"
           role="dialog"
           aria-label="Feedback and suggestions"
         >
           {/* Card Header */}
-          <div className="flex items-start justify-between gap-2 pb-3 border-b border-slate-100">
+          <div className="flex items-start justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-800">
+              <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-800 dark:text-slate-200">
                 <Sparkles className="w-4 h-4 text-amber-500 fill-amber-400" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-slate-900 leading-tight">
+                <h4 className="text-sm font-bold text-slate-900 dark:text-white leading-tight">
                   Problems or Improvements?
                 </h4>
-                <p className="text-[11px] text-slate-500">I'd love to hear your feedback!</p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">I'd love to hear your feedback!</p>
               </div>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
+              className="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
               title="Close"
             >
               <X className="w-4 h-4" />
@@ -66,7 +66,7 @@ export const FeedbackFloatingWidget: React.FC<FeedbackFloatingWidgetProps> = ({ 
           </div>
 
           {/* Body Text */}
-          <p className="py-3 text-xs text-slate-600 leading-relaxed">
+          <p className="py-3 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
             Have questions, caught a bug, or have a suggestion for new features? Reach out directly via Instagram or TikTok:
           </p>
 
@@ -77,7 +77,7 @@ export const FeedbackFloatingWidget: React.FC<FeedbackFloatingWidgetProps> = ({ 
               href="https://instagram.com/mathishleoy"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center justify-between p-2.5 rounded-xl border border-slate-200 hover:border-pink-300 hover:bg-pink-50/50 transition-all text-xs font-medium"
+              className="group flex items-center justify-between p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-pink-300 dark:hover:border-pink-500 hover:bg-pink-50/50 dark:hover:bg-pink-950/20 transition-all text-xs font-medium"
             >
               <div className="flex items-center gap-2.5">
                 <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-amber-500 via-pink-500 to-purple-600 flex items-center justify-center text-white shrink-0 shadow-2xs">
@@ -86,11 +86,11 @@ export const FeedbackFloatingWidget: React.FC<FeedbackFloatingWidgetProps> = ({ 
                   </svg>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-slate-900 group-hover:text-pink-600 transition-colors">DM on Instagram</span>
-                  <span className="text-[11px] text-slate-400">@mathishleoy</span>
+                  <span className="text-slate-900 dark:text-white group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">DM on Instagram</span>
+                  <span className="text-[11px] text-slate-400 dark:text-slate-500">@mathishleoy</span>
                 </div>
               </div>
-              <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-pink-600 transition-colors" />
+              <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors" />
             </a>
 
             {/* TikTok Link */}
@@ -98,20 +98,20 @@ export const FeedbackFloatingWidget: React.FC<FeedbackFloatingWidgetProps> = ({ 
               href="https://tiktok.com/@mathishleoy"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center justify-between p-2.5 rounded-xl border border-slate-200 hover:border-slate-400 hover:bg-slate-50 transition-all text-xs font-medium"
+              className="group flex items-center justify-between p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-all text-xs font-medium"
             >
               <div className="flex items-center gap-2.5">
-                <div className="w-7 h-7 rounded-lg bg-black flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <div className="w-7 h-7 rounded-lg bg-black dark:bg-white flex items-center justify-center text-white dark:text-slate-950 shrink-0 shadow-2xs">
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                     <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.11V8.98a6.38 6.38 0 00-.79-.05A6.33 6.33 0 003 15.26a6.33 6.33 0 006.34 6.34 6.33 6.33 0 006.34-6.34V9.08a8.21 8.21 0 004.91 1.57v-3.5a4.83 4.83 0 01-1-.46z" />
                   </svg>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-slate-900 group-hover:text-black transition-colors">Reach out on TikTok</span>
-                  <span className="text-[11px] text-slate-400">@mathishleoy</span>
+                  <span className="text-slate-900 dark:text-white group-hover:text-black dark:group-hover:text-slate-200 transition-colors">Reach out on TikTok</span>
+                  <span className="text-[11px] text-slate-400 dark:text-slate-500">@mathishleoy</span>
                 </div>
               </div>
-              <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-black transition-colors" />
+              <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-black dark:group-hover:text-white transition-colors" />
             </a>
 
             {/* GitHub Link */}
@@ -119,32 +119,32 @@ export const FeedbackFloatingWidget: React.FC<FeedbackFloatingWidgetProps> = ({ 
               href="https://github.com/mathishleoy"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center justify-between p-2.5 rounded-xl border border-slate-200 hover:border-slate-400 hover:bg-slate-50 transition-all text-xs font-medium"
+              className="group flex items-center justify-between p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-all text-xs font-medium"
             >
               <div className="flex items-center gap-2.5">
-                <div className="w-7 h-7 rounded-lg bg-slate-900 flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <div className="w-7 h-7 rounded-lg bg-slate-900 dark:bg-white flex items-center justify-center text-white dark:text-slate-950 shrink-0 shadow-2xs">
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                     <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
                   </svg>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-slate-900 group-hover:text-black transition-colors">GitHub Profile</span>
-                  <span className="text-[11px] text-slate-400">@mathishleoy</span>
+                  <span className="text-slate-900 dark:text-white group-hover:text-black dark:group-hover:text-slate-200 transition-colors">GitHub Profile</span>
+                  <span className="text-[11px] text-slate-400 dark:text-slate-500">@mathishleoy</span>
                 </div>
               </div>
-              <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-black transition-colors" />
+              <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-black dark:group-hover:text-white transition-colors" />
             </a>
           </div>
 
           {/* Quick Help Guide Link */}
-          <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-            <span className="text-slate-500">Need authoring tips?</span>
+          <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
+            <span className="text-slate-500 dark:text-slate-400">Need authoring tips?</span>
             <button
               onClick={() => {
                 setIsOpen(false);
                 onOpenGuide();
               }}
-              className="inline-flex items-center gap-1 font-semibold text-slate-900 hover:text-black underline"
+              className="inline-flex items-center gap-1 font-semibold text-slate-900 dark:text-white hover:text-black dark:hover:text-slate-300 underline"
             >
               <HelpCircle className="w-3.5 h-3.5" />
               <span>Guide & Prompts</span>
@@ -157,9 +157,9 @@ export const FeedbackFloatingWidget: React.FC<FeedbackFloatingWidgetProps> = ({ 
       <div className="relative">
         {/* Helper pill shown ONLY for first-time visitors who haven't touched it yet */}
         {!isOpen && !hasInteracted && (
-          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 hidden md:flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 text-white text-xs font-medium rounded-full shadow-lg whitespace-nowrap">
+          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 hidden md:flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 dark:bg-slate-800 text-white text-xs font-medium rounded-full shadow-lg whitespace-nowrap border border-transparent dark:border-slate-700">
             <span>Problems or ideas? Reach out!</span>
-            <div className="w-2 h-2 bg-slate-900 rotate-45 absolute -right-1 top-1/2 -translate-y-1/2" />
+            <div className="w-2 h-2 bg-slate-900 dark:bg-slate-800 rotate-45 absolute -right-1 top-1/2 -translate-y-1/2" />
           </div>
         )}
 
@@ -167,8 +167,8 @@ export const FeedbackFloatingWidget: React.FC<FeedbackFloatingWidgetProps> = ({ 
           onClick={handleToggle}
           className={`relative flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-full text-white shadow-lg transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-hidden ${
             isOpen
-              ? 'bg-slate-800 rotate-90 shadow-xl'
-              : 'bg-black hover:bg-slate-800'
+              ? 'bg-slate-800 dark:bg-slate-700 rotate-90 shadow-xl'
+              : 'bg-black dark:bg-white text-white dark:text-slate-950 hover:bg-slate-800 dark:hover:bg-slate-200'
           }`}
           aria-expanded={isOpen}
           aria-label="Help and feedback"
@@ -177,7 +177,7 @@ export const FeedbackFloatingWidget: React.FC<FeedbackFloatingWidgetProps> = ({ 
           {isOpen ? (
             <X className="w-5 h-5 transition-transform" />
           ) : (
-            <HelpCircle className="w-5 h-5 sm:w-5 sm:h-5 text-white" />
+            <HelpCircle className="w-5 h-5 sm:w-5 sm:h-5" />
           )}
         </button>
       </div>

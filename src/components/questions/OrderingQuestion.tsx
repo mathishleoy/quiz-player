@@ -82,7 +82,7 @@ export const OrderingQuestion: React.FC<OrderingQuestionProps> = ({
           <button
             type="button"
             onClick={handleResetShuffle}
-            className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-slate-900 transition-colors"
+            className="inline-flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
             title="Shuffle again"
           >
             <RotateCcw className="w-3 h-3" />
@@ -103,20 +103,20 @@ export const OrderingQuestion: React.FC<OrderingQuestionProps> = ({
               onDragStart={(e) => handleDragStart(e, idx)}
               onDragOver={(e) => handleDragOver(e, idx)}
               onDragEnd={handleDragEnd}
-              className={`flex items-center gap-3 p-3 rounded-lg border bg-white transition-all ${
+              className={`flex items-center gap-3 p-3 rounded-lg border bg-white dark:bg-slate-900 transition-all ${
                 isReview
                   ? isCorrectPosition
-                    ? 'border-emerald-500 bg-emerald-50/60 ring-1 ring-emerald-500'
-                    : 'border-rose-300 bg-rose-50/50'
+                    ? 'border-emerald-500 bg-emerald-50/60 dark:bg-emerald-950/40 ring-1 ring-emerald-500'
+                    : 'border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-950/30'
                   : draggedIndex === idx
-                  ? 'border-black opacity-40 shadow-inner'
-                  : 'border-slate-200 hover:border-slate-400 hover:shadow-xs'
+                  ? 'border-black dark:border-white opacity-40 shadow-inner'
+                  : 'border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 hover:shadow-xs'
               }`}
             >
               {/* Drag Grip Handle */}
               {!isReview ? (
                 <div
-                  className="cursor-grab active:cursor-grabbing text-slate-400 hover:text-slate-700 p-1"
+                  className="cursor-grab active:cursor-grabbing text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-200 p-1"
                   title="Drag to reorder"
                 >
                   <GripVertical className="w-4 h-4" />
@@ -132,14 +132,14 @@ export const OrderingQuestion: React.FC<OrderingQuestionProps> = ({
                     ? isCorrectPosition
                       ? 'bg-emerald-600 text-white'
                       : 'bg-rose-500 text-white'
-                    : 'bg-slate-100 border border-slate-200 text-slate-700'
+                    : 'bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200'
                 }`}
               >
                 {idx + 1}
               </div>
 
               {/* Item Content */}
-              <div className="flex-1 text-sm font-medium text-slate-800 leading-snug">
+              <div className="flex-1 text-sm font-medium text-slate-800 dark:text-slate-200 leading-snug">
                 {item}
               </div>
 
@@ -147,11 +147,11 @@ export const OrderingQuestion: React.FC<OrderingQuestionProps> = ({
               {isReview ? (
                 <div className="flex items-center gap-1.5 text-xs font-semibold shrink-0">
                   {isCorrectPosition ? (
-                    <span className="text-emerald-700 flex items-center gap-1">
+                    <span className="text-emerald-700 dark:text-emerald-400 flex items-center gap-1">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Correct
                     </span>
                   ) : (
-                    <span className="text-rose-700 flex items-center gap-1">
+                    <span className="text-rose-700 dark:text-rose-400 flex items-center gap-1">
                       <XCircle className="w-4 h-4 text-rose-500" />
                       Expected #{question.items.indexOf(item) + 1}
                     </span>
@@ -163,7 +163,7 @@ export const OrderingQuestion: React.FC<OrderingQuestionProps> = ({
                     type="button"
                     disabled={idx === 0}
                     onClick={() => moveItem(idx, idx - 1)}
-                    className="p-1 text-slate-400 hover:text-slate-800 hover:bg-slate-100 rounded disabled:opacity-20 disabled:hover:bg-transparent"
+                    className="p-1 text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded disabled:opacity-20 disabled:hover:bg-transparent"
                     title="Move up"
                   >
                     <ChevronUp className="w-4 h-4" />
@@ -172,7 +172,7 @@ export const OrderingQuestion: React.FC<OrderingQuestionProps> = ({
                     type="button"
                     disabled={idx === items.length - 1}
                     onClick={() => moveItem(idx, idx + 1)}
-                    className="p-1 text-slate-400 hover:text-slate-800 hover:bg-slate-100 rounded disabled:opacity-20 disabled:hover:bg-transparent"
+                    className="p-1 text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded disabled:opacity-20 disabled:hover:bg-transparent"
                     title="Move down"
                   >
                     <ChevronDown className="w-4 h-4" />
@@ -185,12 +185,12 @@ export const OrderingQuestion: React.FC<OrderingQuestionProps> = ({
       </div>
 
       {isReview && (
-        <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs space-y-1">
-          <div className="font-semibold text-slate-700">Official Correct Sequence:</div>
-          <ol className="list-decimal list-inside space-y-0.5 text-slate-600">
+        <div className="p-3 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 rounded-lg text-xs space-y-1">
+          <div className="font-semibold text-slate-700 dark:text-slate-300">Official Correct Sequence:</div>
+          <ol className="list-decimal list-inside space-y-0.5 text-slate-600 dark:text-slate-400">
             {question.items.map((it, i) => (
               <li key={i}>
-                <span className="font-medium text-slate-800">{it}</span>
+                <span className="font-medium text-slate-800 dark:text-slate-200">{it}</span>
               </li>
             ))}
           </ol>
