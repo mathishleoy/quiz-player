@@ -10,6 +10,7 @@ import { OrderingQuestion } from './questions/OrderingQuestion';
 import { ClassificationQuestion } from './questions/ClassificationQuestion';
 import { ScenarioQuestion } from './questions/ScenarioQuestion';
 import { isQuestionAnswered } from '../utils/scoring';
+import { FormattedText } from './FormattedText';
 
 interface QuestionCardProps {
   question: QuizQuestion;
@@ -208,8 +209,8 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
       {/* Main Question Formulation Box */}
       <div className="flex-1 w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-5 sm:p-7 shadow-xs space-y-6 transition-colors">
         {/* Question Prompt */}
-        <div className="text-base sm:text-lg font-medium text-slate-900 dark:text-white leading-relaxed">
-          {question.text}
+        <div className="text-base sm:text-lg font-semibold text-slate-900 dark:text-white leading-relaxed">
+          <FormattedText text={question.text} />
         </div>
 
         {/* Question Interactive Body */}
@@ -242,14 +243,16 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
               {!scoreResult.isCorrect && (
                 <div className="text-xs pt-1">
                   <span className="font-semibold">The correct answer is: </span>
-                  <span className="font-medium underline decoration-slate-300 dark:decoration-slate-600">{scoreResult.correctAnswerSummary}</span>
+                  <span className="font-medium underline decoration-slate-300 dark:decoration-slate-600">
+                    <FormattedText text={scoreResult.correctAnswerSummary} />
+                  </span>
                 </div>
               )}
 
               {scoreResult.feedback && (
                 <div className="pt-2 text-xs border-t border-slate-200/60 dark:border-slate-800/80 text-slate-700 dark:text-slate-300">
                   <span className="font-semibold text-slate-800 dark:text-slate-200">Feedback: </span>
-                  <span>{scoreResult.feedback}</span>
+                  <FormattedText text={scoreResult.feedback} />
                 </div>
               )}
             </div>

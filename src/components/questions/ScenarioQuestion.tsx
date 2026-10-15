@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScenarioQuestionData, QuestionScoreResult } from '../../types/quiz';
 import { BookOpen, CheckCircle2, XCircle } from 'lucide-react';
+import { FormattedText } from '../FormattedText';
 
 interface ScenarioQuestionProps {
   question: ScenarioQuestionData;
@@ -10,7 +11,7 @@ interface ScenarioQuestionProps {
   scoreResult?: QuestionScoreResult;
 }
 
-const OPTION_LABELS = ['a', 'b', 'c', 'd', 'e', 'f'];
+const OPTION_LABELS = ['A', 'B', 'C', 'D', 'E', 'F'];
 
 export const ScenarioQuestion: React.FC<ScenarioQuestionProps> = ({
   question,
@@ -24,18 +25,18 @@ export const ScenarioQuestion: React.FC<ScenarioQuestionProps> = ({
   return (
     <div className="space-y-5">
       {/* Scenario Context Card */}
-      <div className="p-4 sm:p-5 rounded-lg bg-slate-900 text-slate-100 border border-slate-800 shadow-xs space-y-2">
+      <div className="p-4 sm:p-5 rounded-xl bg-slate-900 dark:bg-slate-950 text-slate-100 border border-slate-800 shadow-sm space-y-2.5">
         <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-400">
-          <BookOpen className="w-3.5 h-3.5 text-slate-300" />
+          <BookOpen className="w-4 h-4 text-slate-300" />
           <span>Case Scenario & Context</span>
         </div>
-        <p className="text-sm leading-relaxed text-slate-200 whitespace-pre-line font-normal">
-          {question.scenario}
-        </p>
+        <div className="text-sm leading-relaxed text-slate-200 font-normal">
+          <FormattedText text={question.scenario} />
+        </div>
       </div>
 
       <div className="space-y-3">
-        <div className="text-sm font-semibold text-slate-500 uppercase tracking-wider">
+        <div className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
           Based on the scenario above, select the most appropriate option:
         </div>
 
@@ -45,24 +46,29 @@ export const ScenarioQuestion: React.FC<ScenarioQuestionProps> = ({
             const isCorrect = idx === question.correct;
             const isUserWrong = isSelected && !isCorrect && isReview;
 
-            let cardStyle = 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/60 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200';
+            let cardStyle =
+              'border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800/70 bg-white dark:bg-slate-950/60 text-slate-800 dark:text-slate-100 shadow-2xs';
 
             if (isReview) {
               if (isCorrect) {
-                cardStyle = 'border-emerald-500 bg-emerald-50/70 dark:bg-emerald-950/40 text-emerald-950 dark:text-emerald-200 ring-1 ring-emerald-500';
+                cardStyle =
+                  'border-emerald-500 bg-emerald-50/70 dark:bg-emerald-950/40 text-emerald-950 dark:text-emerald-200 ring-1 ring-emerald-500';
               } else if (isUserWrong) {
-                cardStyle = 'border-rose-400 bg-rose-50/70 dark:bg-rose-950/40 text-rose-950 dark:text-rose-200 ring-1 ring-rose-400';
+                cardStyle =
+                  'border-rose-400 bg-rose-50/70 dark:bg-rose-950/40 text-rose-950 dark:text-rose-200 ring-1 ring-rose-400';
               } else {
-                cardStyle = 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 opacity-60 text-slate-600 dark:text-slate-400';
+                cardStyle =
+                  'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950/40 opacity-60 text-slate-600 dark:text-slate-400';
               }
             } else if (isSelected) {
-              cardStyle = 'border-slate-900 dark:border-white bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white ring-2 ring-slate-900 dark:ring-white shadow-xs';
+              cardStyle =
+                'border-slate-900 dark:border-slate-100 bg-slate-100/90 dark:bg-slate-800/90 text-slate-950 dark:text-white ring-2 ring-slate-900 dark:ring-slate-100 shadow-xs';
             }
 
             return (
               <label
                 key={idx}
-                className={`flex items-start gap-3.5 p-3.5 rounded-lg border text-sm transition-all cursor-pointer ${cardStyle} ${
+                className={`group flex items-start sm:items-center gap-3.5 p-3.5 sm:p-4 rounded-xl border text-sm transition-all cursor-pointer ${cardStyle} ${
                   isReview ? 'cursor-default pointer-events-none' : ''
                 }`}
               >
@@ -76,33 +82,53 @@ export const ScenarioQuestion: React.FC<ScenarioQuestionProps> = ({
                   className="sr-only"
                 />
 
+                {/* Letter identifier badge */}
                 <div
-                  className={`w-6 h-6 rounded-md flex items-center justify-center text-xs font-semibold shrink-0 uppercase transition-colors ${
+                  className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-xs font-extrabold shrink-0 uppercase transition-all shadow-2xs ${
                     isSelected && !isReview
-                      ? 'bg-black dark:bg-white text-white dark:text-slate-950'
+                      ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-950 scale-105'
                       : isReview && isCorrect
                       ? 'bg-emerald-600 text-white'
                       : isReview && isUserWrong
                       ? 'bg-rose-600 text-white'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 group-hover:border-slate-400 dark:group-hover:border-slate-500'
                   }`}
                 >
                   {OPTION_LABELS[idx] || idx + 1}
                 </div>
 
-                <div className="flex-1 pt-0.5 leading-relaxed font-normal">
-                  {opt}
+                {/* Answer Content with Rich Formatting & Monospace Subnets */}
+                <div className="flex-1 text-sm sm:text-base leading-relaxed font-normal">
+                  <FormattedText text={opt} />
                 </div>
 
+                {/* Radio selection circle indicator */}
+                {!isReview && (
+                  <div className="shrink-0 pl-1 self-center">
+                    <div
+                      className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center transition-all ${
+                        isSelected
+                          ? 'border-slate-900 dark:border-white bg-slate-900 dark:bg-white'
+                          : 'border-slate-300 dark:border-slate-600 group-hover:border-slate-500 dark:group-hover:border-slate-400'
+                      }`}
+                    >
+                      {isSelected && (
+                        <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white dark:bg-slate-950" />
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Review status icons */}
                 {isReview && isCorrect && (
-                  <div className="flex items-center gap-1 text-xs font-semibold text-emerald-700 shrink-0">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400 shrink-0">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                     <span className="hidden sm:inline">Correct</span>
                   </div>
                 )}
                 {isReview && isUserWrong && (
-                  <div className="flex items-center gap-1 text-xs font-semibold text-rose-700 shrink-0">
-                    <XCircle className="w-4 h-4 text-rose-600" />
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-rose-700 dark:text-rose-400 shrink-0">
+                    <XCircle className="w-4 h-4 text-rose-600 dark:text-rose-400" />
                     <span className="hidden sm:inline">Your choice</span>
                   </div>
                 )}
@@ -114,3 +140,4 @@ export const ScenarioQuestion: React.FC<ScenarioQuestionProps> = ({
     </div>
   );
 };
+

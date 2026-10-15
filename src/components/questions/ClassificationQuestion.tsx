@@ -152,12 +152,12 @@ export const ClassificationQuestion: React.FC<ClassificationQuestionProps> = ({
                   : 'border-slate-200 dark:border-slate-800'
               }`}
             >
-              {/* Category Header */}
-              <div className="px-3.5 py-2.5 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wide truncate">
+              {/* Category Header - fully visible names without truncation */}
+              <div className="px-3.5 py-2.5 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex items-start justify-between gap-2.5 min-h-[44px]">
+                <span className="text-xs font-bold text-slate-800 dark:text-slate-100 uppercase tracking-wide break-words whitespace-normal leading-snug flex-1">
                   {category}
                 </span>
-                <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700">
+                <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 shrink-0 shadow-2xs">
                   {categoryItems.length}
                 </span>
               </div>
@@ -165,7 +165,7 @@ export const ClassificationQuestion: React.FC<ClassificationQuestionProps> = ({
               {/* Items in this category */}
               <div className="p-3 flex-1 space-y-2">
                 {categoryItems.length === 0 ? (
-                  <div className="h-full flex items-center justify-center text-xs text-slate-400 dark:text-slate-500 italic py-6">
+                  <div className="h-full flex items-center justify-center text-xs text-slate-400 dark:text-slate-500 italic py-6 text-center px-2">
                     {isReview ? 'No items placed' : 'Drop or assign items here'}
                   </div>
                 ) : (
@@ -176,7 +176,7 @@ export const ClassificationQuestion: React.FC<ClassificationQuestionProps> = ({
                     return (
                       <div
                         key={itIdx}
-                        className={`p-2 rounded-md border text-xs flex items-center justify-between gap-1.5 transition-colors ${
+                        className={`p-2.5 rounded-md border text-xs flex items-center justify-between gap-2 transition-colors ${
                           isReview
                             ? isCorrect
                               ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-500 text-emerald-950 dark:text-emerald-200'
@@ -184,7 +184,7 @@ export const ClassificationQuestion: React.FC<ClassificationQuestionProps> = ({
                             : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 shadow-2xs'
                         }`}
                       >
-                        <span className="font-medium truncate">{itemText}</span>
+                        <span className="font-medium break-words whitespace-normal leading-snug flex-1">{itemText}</span>
 
                         {isReview ? (
                           <div className="shrink-0 flex items-center">
